@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokzo Coming Soon</title>
+  <style>
+    :root{
+      --white:#ffffff;
+      --black:#050505;
+      --blue:#1457ff;
+      --blue-deep:#0a2ea6;
+      --text-dark:#111111;
+      --text-light:#f7f9ff;
+      --muted-light:rgba(255,255,255,.78);
+      --lime:#d8ef47;
+      --border-light:rgba(255,255,255,.12);
+      --shadow:0 24px 70px rgba(0,0,0,.22);
+      --wrap:min(100% - 32px, 980px);
+      --radius:30px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{min-height:100%}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--text-light);
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 22%),
+        radial-gradient(circle at 80% 55%, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 18%),
+        linear-gradient(
+          to bottom,
+          #ffffff 0%,
+          #eef3ff 10%,
+          #4f86ff 24%,
+          #1457ff 40%,
+          #0e43cf 60%,
+          #081f67 76%,
+          #050505 100%
+        );
+      overflow-x:hidden;
+    }
+
+    body::before,
+    body::after{
+      content:"";
+      position:fixed;
+      border-radius:999px;
+      filter:blur(90px);
+      pointer-events:none;
+      z-index:0;
+      opacity:.35;
+    }
+
+    body::before{
+      width:320px;
+      height:320px;
+      top:8%;
+      right:-120px;
+      background:rgba(20,87,255,.28);
+    }
+
+    body::after{
+      width:420px;
+      height:420px;
+      bottom:-120px;
+      left:-160px;
+      background:rgba(255,255,255,.08);
+    }
+
+    a{color:inherit;text-decoration:none}
+
+    .wrap{
+      width:var(--wrap);
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .site-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:24px 0 14px;
+    }
+
+    .brand{
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      font-size:1.85rem;
+      font-weight:700;
+      letter-spacing:-.04em;
+      color:#111111;
+    }
+
+    .brand-mark{
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 35% 35%, #ffffff 0 24%, transparent 25%),
+        conic-gradient(from 210deg, #1558ff, #40d5ff, #1558ff, #97aaff, #1558ff);
+      box-shadow:inset 0 0 0 2px rgba(255,255,255,.8), 0 8px 18px rgba(20,87,255,.16);
+    }
+
+    .back-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid rgba(17,17,17,.08);
+      background:rgba(255,255,255,.7);
+      color:#111111;
+      font-size:.95rem;
+      font-weight:700;
+      backdrop-filter:blur(10px);
+    }
+
+    .main{
+      flex:1;
+      display:grid;
+      place-items:center;
+      padding:24px 0 56px;
+    }
+
+    .card{
+      width:100%;
+      max-width:760px;
+      border-radius:32px;
+      padding:58px 34px 42px;
+      text-align:center;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,255,255,.12), rgba(255,255,255,0) 34%),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)),
+        rgba(0,0,0,.18);
+      border:1px solid var(--border-light);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(12px);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      top:-40px;
+      right:-30px;
+      background:radial-gradient(circle, rgba(255,255,255,.18), rgba(255,255,255,0) 68%);
+      pointer-events:none;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:40px;
+      padding:0 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      color:#ffffff;
+      font-size:.82rem;
+      font-weight:800;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+    }
+
+    h1{
+      margin:18px auto 0;
+      font-size:clamp(2.8rem,8vw,5.8rem);
+      line-height:.9;
+      letter-spacing:-.06em;
+      text-transform:uppercase;
+      max-width:8ch;
+    }
+
+    p{
+      margin:18px auto 0;
+      max-width:30ch;
+      font-size:1.08rem;
+      line-height:1.65;
+      color:var(--muted-light);
+    }
+
+    .item-name{
+      margin:24px auto 0;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:52px;
+      padding:0 18px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      font-size:1rem;
+      font-weight:800;
+      letter-spacing:-.02em;
+      text-transform:lowercase;
+    }
+
+    .actions{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:30px;
+    }
+
+    .button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:56px;
+      padding:0 24px;
+      border-radius:999px;
+      font-size:1rem;
+      font-weight:800;
+      letter-spacing:-.02em;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+
+    .button:hover{transform:translateY(-2px)}
+
+    .button-primary{
+      background:var(--lime);
+      color:#101010;
+      box-shadow:0 16px 42px rgba(0,0,0,.18);
+    }
+
+    .button-secondary{
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.08);
+      color:#ffffff;
+    }
+
+    .site-footer{
+      padding:0 0 34px;
+      text-align:center;
+      color:rgba(255,255,255,.74);
+    }
+
+    .footer-links,
+    .footer-notices{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:10px 12px;
+      font-size:.92rem;
+      line-height:1.7;
+      text-transform:uppercase;
+      letter-spacing:.03em;
+    }
+
+    .footer-links{margin-bottom:8px}
+
+    .footer-links > *:not(:last-child)::after,
+    .footer-notices > *:not(:last-child)::after{
+      content:" •";
+      margin-left:12px;
+      color:rgba(255,255,255,.34);
+    }
+
+    .footer-brand{
+      margin-top:12px;
+      font-size:.95rem;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+
+    .footer-brand a{color:#ffffff}
+
+    @media (max-width: 720px){
+      :root{
+        --wrap:min(100% - 24px, 980px);
+      }
+
+      .site-header{
+        padding:18px 0 10px;
+      }
+
+      .brand{
+        font-size:1.5rem;
+      }
+
+      .back-link{
+        min-height:42px;
+        padding:0 14px;
+        font-size:.88rem;
+      }
+
+      .main{
+        padding:20px 0 42px;
+      }
+
+      .card{
+        border-radius:26px;
+        padding:42px 18px 28px;
+      }
+
+      h1{
+        font-size:clamp(2.4rem,13vw,4.2rem);
+        max-width:9ch;
+      }
+
+      p{
+        font-size:1rem;
+      }
+
+      .actions{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .button{
+        width:100%;
+      }
+
+      .footer-links,
+      .footer-notices,
+      .footer-brand{
+        font-size:.84rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <a href="index.html" class="brand" aria-label="Pokzo home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Pokzo</span>
+      </a>
+      <a href="index.html" class="back-link">Back</a>
+    </header>
+
+    <main class="main">
+      <section class="card" aria-label="Coming soon">
+        <div class="eyebrow">Coming Soon</div>
+        <h1 id="title">This circle is coming soon.</h1>
+        <p id="description">The selected preview page is not live yet.</p>
+        <div class="item-name" id="itemName">circle</div>
+        <div class="actions">
+          <a href="index.html#circles" class="button button-primary">Back to circles</a>
+          <a href="index.html" class="button button-secondary">Home</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" aria-label="Footer">
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms and Conditions</a>
+        <a href="#">Support</a>
+      </div>
+      <div class="footer-notices">
+        <span>+18</span>
+        <span>Play Responsibly</span>
+        <span>Gambling can be addictive</span>
+        <span>Only play if you are legally allowed to do so in your jurisdiction</span>
+      </div>
+      <div class="footer-brand">
+        Part of <a href="https://casinoassembly.com" target="_blank" rel="noopener noreferrer">CasinoAssembly.com</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const rawItem = params.get("item") || "circle";
+    const safeItem = rawItem.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const item = safeItem || "circle";
+
+    document.getElementById("itemName").textContent = item;
+    document.getElementById("title").textContent = item + " is coming soon.";
+    document.getElementById("description").textContent = "This page will be available soon.";
+    document.title = "Pokzo • " + item + " • Coming Soon";
+  </script>
+</body>
+</html>
